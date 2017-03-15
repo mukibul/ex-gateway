@@ -17,7 +17,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter{
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**").authorizeRequests()
-                .antMatchers("/orion-auth/**", "/env/**", "/metrics/**").permitAll().anyRequest()
+                .antMatchers("/ssp-auth/**", "/env/**", "/metrics/**").permitAll().anyRequest()
                 .authenticated().and()
                 .headers().addHeaderWriter((request, response) -> {
             response.addHeader("Access-Control-Allow-Origin", "*");
@@ -31,6 +31,6 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter{
 
     @Override
     public void configure(final ResourceServerSecurityConfigurer resources) {
-        resources.resourceId("orion-gateway");
+        resources.resourceId("ssp-gateway");
     }
 }

@@ -1,5 +1,6 @@
 package com.skidata.ssp.gateway;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
@@ -8,6 +9,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
  * @author firoz
  * @since 17/10/16
  */
+@Slf4j
 @SpringBootApplication
 @EnableZuulProxy
 public class GatewayStarter {

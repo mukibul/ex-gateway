@@ -65,7 +65,7 @@ security:
 zuul:
   sensitiveHeaders : ''
 ribbon:
-  ReadTimeout: 10000
+  ReadTimeout: 20000
 logging:
   level:
     root: INFO

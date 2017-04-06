@@ -18,14 +18,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter{
     public void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**").authorizeRequests()
                 .antMatchers("/ssp-auth/**", "/env/**", "/metrics/**").permitAll().anyRequest()
-                .authenticated().and()
-                .headers().addHeaderWriter((request, response) -> {
-            response.addHeader("Access-Control-Allow-Origin", "*");
-            response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS,PATCH");
-            if (request.getMethod().equals("OPTIONS")) {
-                response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
-            }
-        });
+                .authenticated();
                 http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

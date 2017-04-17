@@ -17,7 +17,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter{
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**").authorizeRequests()
-                .antMatchers("/ssp-auth/**", "/env/**", "/metrics/**").permitAll().anyRequest()
+                .antMatchers("/ssp-auth/**", "/env/**", "/metrics/**","/ssp-*/docs/**").permitAll().anyRequest()
                 .authenticated();
                 http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

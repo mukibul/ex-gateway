@@ -9,7 +9,6 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
  * @author firoz
  * @since 17/10/16
  */
-@Slf4j
 @SpringBootApplication
 @EnableZuulProxy
 public class GatewayStarter {

@@ -6,13 +6,13 @@
 
     <groupId>com.skidata.ssp</groupId>
     <artifactId>ssp-gateway</artifactId>
-    <version>${version.number}</version>
+    <version>0.6.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
         <groupId>com.skidata.ssp</groupId>
         <artifactId>ssp-service-starter</artifactId>
-        <version>1.0.43</version>
+        <version>1.0.50</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
@@ -38,12 +38,8 @@
         <connection>scm:git:http://git.swblr.skidata.net/ssp/ssp-gateway.git</connection>
         <url>http://git.swblr.skidata.net/ssp/ssp-gateway</url>
         <developerConnection>scm:git:http://git.swblr.skidata.net/ssp/ssp-gateway.git</developerConnection>
-        <tag>ssp-gateway-${version.number}</tag>
+        <tag>ssp-gateway-${version}</tag>
     </scm>
-
-    <properties>
-        <version.number>${git.commit.time}.${git.commit.id.abbrev}</version.number>
-    </properties>
 
     <dependencies>
         <!--SSP boot starter-->
@@ -124,44 +120,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <version>2.2.1</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>revision</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <dateFormat>ddMMyyyy-HHmmss</dateFormat><!--  human-readable part of the version number -->
-                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
-                    <generateGitPropertiesFile>false</generateGitPropertiesFile><!-- somehow necessary. otherwise the variables are not available in the pom -->
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <id>default-install</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <file>${project.basedir}/target/${artifactId}-${version.number}.${project.packaging}</file>
-                    <groupId>com.skidata.ssp</groupId>
-                    <artifactId>ssp-gateway</artifactId>
-                    <version>${version.number}</version>
-                    <packaging>jar</packaging>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <configuration>
@@ -174,7 +132,6 @@
         <profile>
             <id>docker</id>
             <build>
-
                 <plugins>
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
@@ -228,35 +185,6 @@
                                     <include>${project.build.finalName}.jar</include>
                                 </resource>
                             </resources>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>nexus</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-deploy-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>default-install</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>deploy-file</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <repositoryId>swblr-releases</repositoryId>
-                            <url>https://swblr.skidata.net/nexus/repository/maven-releases/</url>
-                            <file>${project.basedir}/target/${artifactId}-${version.number}.${project.packaging}</file>
-                            <groupId>com.skidata.ssp</groupId>
-                            <artifactId>ssp-gateway</artifactId>
-                            <version>${version.number}</version>
-                            <packaging>jar</packaging>
                         </configuration>
                     </plugin>
                 </plugins>

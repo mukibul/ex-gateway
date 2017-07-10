@@ -23,6 +23,10 @@
         </repository>
     </repositories>
 
+    <properties>
+        <jgitflow.maven.plugin.version>1.0-m5.1</jgitflow.maven.plugin.version>
+    </properties>
+
     <distributionManagement>
         <snapshotRepository>
             <id>swblr-snapshots</id>
@@ -124,6 +128,25 @@
                 <artifactId>maven-deploy-plugin</artifactId>
                 <configuration>
                     <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>external.atlassian.jgitflow</groupId>
+                <artifactId>jgitflow-maven-plugin</artifactId>
+                <version>${jgitflow.maven.plugin.version}</version>
+                <configuration>
+                    <pushFeatures>true</pushFeatures>
+                    <pushHotfixes>true</pushHotfixes>
+                    <pushReleases>true</pushReleases>
+                    <enableSshAgent>true</enableSshAgent>
+                    <flowInitContext>
+                        <masterBranchName>master</masterBranchName>
+                        <developBranchName>development</developBranchName>
+                        <featureBranchPrefix>feature/</featureBranchPrefix>
+                        <releaseBranchPrefix>release/</releaseBranchPrefix>
+                        <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
+                        <versionTagPrefix>${project.artifactId}-</versionTagPrefix>
+                    </flowInitContext>
                 </configuration>
             </plugin>
         </plugins>

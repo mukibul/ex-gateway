@@ -3,18 +3,14 @@ spring.profiles.active: development
 spring:
   profiles: development
   application:
-    name: ssp-gateway
+    name: tt-gateway
   resources:
       chain:
         enabled: true
 security:
-  user:
-    password: none
-  oauth2:
-    resource:
-      user-info-uri: http://ssp-auth/me
-      jwt:
-        keyValue: 123
+  signing-key: 1754@@$$GgRr@0oK%%*bvVLl1Wo0
+  jwt:
+    resource-ids: tt-gateway
 zuul:
   sensitiveHeaders : ''
 ribbon:
@@ -48,24 +44,20 @@ endpoints:
     sensitive: false
 ---
 spring:
-  profiles: docker
+  profiles: production
   application:
-    name: ssp-gateway
+    name: tt-gateway
   resources:
       chain:
         enabled: true
 security:
-  user:
-    password: none
-  oauth2:
-    resource:
-      user-info-uri: http://ssp-auth/me
-      jwt:
-        keyValue: 123
+  signing-key: 1754@@$$GgRr@0oK%%*bvVLl1Wo0
+  jwt:
+    resource-ids: tt-gateway
 zuul:
   sensitiveHeaders : ''
 ribbon:
-  ReadTimeout: 20000
+  ReadTimeout: 10000
 logging:
   level:
     root: INFO
@@ -85,7 +77,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://ssp-discovery:8761/eureka/
+      defaultZone: http://www.toppertalks.com:8761/eureka/
 endpoints:
   restart:
     enabled: true

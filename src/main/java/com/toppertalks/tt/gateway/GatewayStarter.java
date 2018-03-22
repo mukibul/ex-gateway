@@ -1,4 +1,4 @@
-package com.skidata.ssp.gateway;
+package com.toppertalks.tt.gateway;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

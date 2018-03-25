@@ -38,9 +38,10 @@ public class CorsCustomization {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:4000");
+        /*config.addAllowedOrigin("http://localhost:4000");
         config.addAllowedOrigin("https://www.toppertalks.com");
-        config.addAllowedOrigin("https://toppertalks.com");
+        config.addAllowedOrigin("https://toppertalks.com");*/
+        config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("HEAD");

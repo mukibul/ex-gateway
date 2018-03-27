@@ -41,7 +41,7 @@ public class CorsCustomization {
         /*config.addAllowedOrigin("http://localhost:4000");
         config.addAllowedOrigin("https://www.toppertalks.com");
         config.addAllowedOrigin("https://toppertalks.com");*/
-        config.addAllowedOrigin("*");
+        //config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("HEAD");

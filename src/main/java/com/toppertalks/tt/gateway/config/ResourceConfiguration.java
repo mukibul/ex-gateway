@@ -66,20 +66,18 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
                 .antMatchers("/tt-auth/**", "/env/**", "/metrics/**").permitAll().anyRequest()
                 .authenticated();
                 http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//         http
-//                .authorizeRequests()
-//                .antMatchers( "/**").access("#oauth2.hasScope('call-services')")
-//                .and()
-//                .headers().addHeaderWriter(new HeaderWriter() {
-//            @Override
-//            public void writeHeaders(HttpServletRequest request, HttpServletResponse response) {
-//                response.addHeader("Access-Control-Allow-Origin", "*");
-//                if (request.getMethod().equals("OPTIONS")) {
-//                    response.setHeader("Access-Control-Allow-Methods", request.getHeader("Access-Control-Request-Method"));
-//                    response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
-//                }
-//            }
-//        });
+         http.cors().and().headers().addHeaderWriter(new HeaderWriter() {
+            @Override
+            public void writeHeaders(HttpServletRequest request, HttpServletResponse response) {
+                if(response.getHeader("Access-Control-Allow-Origin")==null || response.getHeader("Access-Control-Allow-Origin").isEmpty()) {
+                    response.addHeader("Access-Control-Allow-Origin", "*");
+                }
+                if (request.getMethod().equals("OPTIONS")) {
+                    response.setHeader("Access-Control-Allow-Methods", request.getHeader("Access-Control-Request-Method"));
+                    response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
+                }
+            }
+        });
     }
 
 //    @Override

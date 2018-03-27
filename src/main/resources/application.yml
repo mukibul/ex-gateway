@@ -42,6 +42,8 @@ endpoints:
     enabled: true
   health:
     sensitive: false
+  cors:
+    allowed-origins: http://localhost:4000
 ---
 spring:
   profiles: production
@@ -85,3 +87,5 @@ endpoints:
     enabled: true
   health:
     sensitive: false
+  cors:
+    allowed-origins: https://www.toppertalks.com

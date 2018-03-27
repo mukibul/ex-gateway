@@ -33,6 +33,9 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
     @Value("${security.signing-key}")
     private String signingKey;
 
+    @Value("${endpoints.cors.allowed-origins}")
+    private String allowedOrigin;
+
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
@@ -70,7 +73,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
             @Override
             public void writeHeaders(HttpServletRequest request, HttpServletResponse response) {
                 if(response.getHeader("Access-Control-Allow-Origin")==null || response.getHeader("Access-Control-Allow-Origin").isEmpty()) {
-                    response.addHeader("Access-Control-Allow-Origin", "*");
+                    response.addHeader("Access-Control-Allow-Origin", allowedOrigin);
                 }
                 if (request.getMethod().equals("OPTIONS")) {
                     response.setHeader("Access-Control-Allow-Methods", request.getHeader("Access-Control-Request-Method"));

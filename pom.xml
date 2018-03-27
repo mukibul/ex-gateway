@@ -2,66 +2,43 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.skidata.ssp</groupId>
-    <artifactId>ssp-gateway</artifactId>
-    <version>0.6.3</version>
+    <groupId>com.toppertalks.tt</groupId>
+    <artifactId>tt-gateway</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>com.skidata.ssp</groupId>
-        <artifactId>ssp-service-starter</artifactId>
-        <version>1.0.50</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.10.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <repositories>
-        <repository>
-            <id>swblr-releases</id>
-            <url>https://swblr.skidata.net/nexus/repository/maven-releases/</url>
-        </repository>
-    </repositories>
-
     <properties>
-        <jgitflow.maven.plugin.version>1.0-m5.1</jgitflow.maven.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <docker.image.prefix>mukibul</docker.image.prefix>
+        <docker.plugin.version>1.0.0</docker.plugin.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>swblr-snapshots</id>
-            <url>https://swblr.skidata.net/nexus/repository/maven-snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>swblr-releases</id>
-            <url>https://swblr.skidata.net/nexus/repository/maven-releases/</url>
-        </repository>
-    </distributionManagement>
-
-    <scm>
-        <connection>scm:git:http://git.swblr.skidata.net/ssp/ssp-gateway.git</connection>
-        <url>http://git.swblr.skidata.net/ssp/ssp-gateway</url>
-        <developerConnection>scm:git:http://git.swblr.skidata.net/ssp/ssp-gateway.git</developerConnection>
-        <tag>ssp-gateway-${version}</tag>
-    </scm>
 
     <dependencies>
-        <!--SSP boot starter-->
-        <dependency>
-            <groupId>com.skidata.ssp</groupId>
-            <artifactId>ssp-spring-boot-starter</artifactId>
-            <version>1.0.43</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security.oauth</groupId>
-            <artifactId>spring-security-oauth2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-jwt</artifactId>
-        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-security</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.security.oauth</groupId>-->
+            <!--<artifactId>spring-security-oauth2</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.security</groupId>-->
+            <!--<artifactId>spring-security-jwt</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
@@ -89,10 +66,10 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-starter-oauth2</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.netflix.feign</groupId>
             <artifactId>feign-jackson</artifactId>
@@ -103,15 +80,86 @@
             <artifactId>json-path</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.h2database</groupId>-->
+            <!--<artifactId>h2</artifactId>-->
+            <!--<version>1.4.195</version>-->
+        <!--</dependency>-->
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.195</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.toppertalks</groupId>
+            <artifactId>sec-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
+            <version>1.0.0.RELEASE</version>
         </dependency>
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Edgware.SR2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
-        <finalName>ssp-gateway-${version}</finalName>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5.1</version>
+                    <configuration>
+                        <tagNameFormat>v@{project.version}</tagNameFormat>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <!-- do not release profile from Maven super pom -->
+                        <useReleaseProfile>false</useReleaseProfile>
+                        <!--  instead use our own one called release, see below -->
+                        <releaseProfiles>release</releaseProfiles>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.10.1</version>
+                    <configuration>
+                        <show>private</show>
+                        <nohelp>true</nohelp>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.5.2.RELEASE</version>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker.plugin.version}</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -128,31 +176,15 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>external.atlassian.jgitflow</groupId>
-                <artifactId>jgitflow-maven-plugin</artifactId>
-                <version>${jgitflow.maven.plugin.version}</version>
-                <configuration>
-                    <pushFeatures>true</pushFeatures>
-                    <pushHotfixes>true</pushHotfixes>
-                    <pushReleases>true</pushReleases>
-                    <enableSshAgent>true</enableSshAgent>
-                    <flowInitContext>
-                        <masterBranchName>master</masterBranchName>
-                        <developBranchName>development</developBranchName>
-                        <featureBranchPrefix>feature/</featureBranchPrefix>
-                        <releaseBranchPrefix>release/</releaseBranchPrefix>
-                        <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
-                        <versionTagPrefix>${project.artifactId}-</versionTagPrefix>
-                    </flowInitContext>
-                </configuration>
-            </plugin>
+
         </plugins>
+
     </build>
     <profiles>
         <profile>
             <id>docker</id>
             <build>
+
                 <plugins>
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
@@ -185,8 +217,8 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <serverId>swblr</serverId>
-                            <registryUrl>https://swblr.skidata.net/v1/</registryUrl>
+                            <serverId>docker-hub</serverId>
+                            <registryUrl>https://registry.hub.docker.com/mukibul/</registryUrl>
                             <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                             <baseImage>anapsix/alpine-java:8</baseImage>
                             <volumes>
@@ -211,68 +243,7 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>hqdocker</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-deploy-plugin</artifactId>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>com.spotify</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>build</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>push</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>push</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <serverId>swhq</serverId>
-                            <imageName>docker.skidata.net/${project.artifactId}</imageName>
-                            <baseImage>anapsix/alpine-java:8</baseImage>
-                            <volumes>
-                                <volume>/tmp</volume>
-                            </volumes>
-                            <entryPoint>exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /${project.build.finalName}.jar</entryPoint>
-                            <!--<cmd>["java", "$JAVA_OPTS",
-                                "-Djava.security.egd=file:/dev/./urandom", "-jar",
-                                "/${project.build.finalName}.jar"]</cmd>-->
-                            <forceTags>true</forceTags>
-                            <imageTags>
-                                <imageTag>${project.version}</imageTag>
-                                <imageTag>latest</imageTag>
-                            </imageTags>
-                            <resources>
-                                <resource>
-                                    <targetPath>/</targetPath>
-                                    <directory>${project.build.directory}</directory>
-                                    <include>${project.build.finalName}.jar</include>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+
     </profiles>
 
 

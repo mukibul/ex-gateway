@@ -3,14 +3,18 @@ spring.profiles.active: development
 spring:
   profiles: development
   application:
-    name: ex-gateway
+    name: tt-gateway
   resources:
-    chain:
-      enabled: true
+      chain:
+        enabled: true
+security:
+  signing-key: 1754@@$$GgRr@0oK%%*bvVLl1Wo0
+  jwt:
+    resource-ids: tt-gateway
 zuul:
   sensitiveHeaders : ''
 ribbon:
-  ReadTimeout: 100000
+  ReadTimeout: 10000
 logging:
   level:
     root: INFO
@@ -21,13 +25,6 @@ hystrix:
       execution:
         timeout:
           enabled: false
-        isolation:
-          strategy: THREAD
-          thread:
-            timeoutInMilliseconds: 100000
-security:
-  basic:
-    enable: false
 server:
   port: 8080
 eureka:
@@ -45,3 +42,50 @@ endpoints:
     enabled: true
   health:
     sensitive: false
+  cors:
+    allowed-origins: http://localhost:4000
+---
+spring:
+  profiles: production
+  application:
+    name: tt-gateway
+  resources:
+      chain:
+        enabled: true
+security:
+  signing-key: 1754@@$$GgRr@0oK%%*bvVLl1Wo0
+  jwt:
+    resource-ids: tt-gateway
+zuul:
+  sensitiveHeaders : ''
+ribbon:
+  ReadTimeout: 10000
+logging:
+  level:
+    root: INFO
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+server:
+  port: 8080
+eureka:
+  instance:
+      preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://www.toppertalks.com:8761/eureka/
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+  cors:
+    allowed-origins: https://www.toppertalks.com

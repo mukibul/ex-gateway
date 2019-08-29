@@ -1,4 +1,4 @@
-package com.toppertalks.tt.gateway.config;
+package com.example.gateway.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

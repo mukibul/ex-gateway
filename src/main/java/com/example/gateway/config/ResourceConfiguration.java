@@ -1,4 +1,4 @@
-package com.toppertalks.tt.gateway.config;
+package com.example.gateway.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

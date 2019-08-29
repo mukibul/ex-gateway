@@ -1,0 +1,47 @@
+spring.profiles.active: development
+---
+spring:
+  profiles: development
+  application:
+    name: ex-gateway
+  resources:
+    chain:
+      enabled: true
+zuul:
+  sensitiveHeaders : ''
+ribbon:
+  ReadTimeout: 100000
+logging:
+  level:
+    root: INFO
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 100000
+security:
+  basic:
+    enable: false
+server:
+  port: 8080
+eureka:
+  instance:
+      preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
